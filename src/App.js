@@ -1,78 +1,55 @@
-import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { Header } from "./Components/Header";
-import Footer from "./Components/Footer";
-import Home from "./Components/Home";
-
+import React, { useState } from 'react'
+import "./App.css"
 export default function App() {
-  const [data, setData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmpassword: ""
-  });
 
-  const { username, email, password, confirmpassword } = data;
-
-  const handle = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
-  const submit = (e) => {
-    e.preventDefault();
-    var see=0;
-    if(username.length<=5){
-    alert("please enter greater than five character's")
-    }
-    else if(password===confirmpassword){
-      console.log(data);
-    }
-    else if(see===0)
-    {
-      see=0;
-    }
-   
-  };
-
+  const [input,setInput]=useState('')
+const [result,setResult]=useState('0')
+// const result=input
+  const handling=e=>{
+    setInput(e.target.value)
+  }
+  
   return (
     <div>
-      <center>
-        <form onSubmit={submit}>
-          <h2>Login in</h2>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={username}
-            onChange={handle}
-          />
-          <br />
-          <input type="text" name="email" value={email} onChange={handle} placeholder="Email" required />
-          <br />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Password"
-            onChange={handle}
-          />
-          <br />
-          <input
-          type="password"
-          name="confirmpassword"
-          value={confirmpassword}
-          placeholder="Confirm Password"
-          onChange={handle}
-          >
-          </input>
-          
-          <br />
+    
+      <center className='hi'>
+        
+      
+        <input type="text" name='input' value={input} onChange={handling}/><br /> <br />
+        {/* {input} */}
 
-          <input type="submit" name="submit" placeholder="submit" />
-          {password!=confirmpassword?  <p>rewrite password again</p>:null}
-        </form>
+        <button onClick={()=> setInput('')} >Clr</button>
+        <button onClick={()=>setResult(eval(input))}>Res</button>
+
+
+
+       
+        <h1>Result is :{result}</h1>
+
+        <button onClick={()=> setInput(input+'1')}>1</button>
+        <button onClick={()=> setInput(input+'2')}>2</button>
+        <button onClick={()=> setInput(input+'3')}>3</button>
+        <button onClick={()=> setInput(input+'4')}>4</button> <br />
+        <button onClick={()=> setInput(input+'5')}>5</button>
+        <button onClick={()=> setInput(input+'6')}>6</button>
+        <button onClick={()=> setInput(input+'7')}>7</button>
+        <button onClick={()=> setInput(input+'8')}>8</button> <br />
+        <button onClick={()=> setInput(input+'9')}>9</button>
+        <button onClick={()=> setInput(input+'0')}>0</button>
+        <button onClick={()=> setInput('')} >clr</button>
+        <button onClick={()=> setInput(input+'+')}>+</button> <br />
+        <button onClick={()=> setInput(input+'-')}>-</button>
+        <button onClick={()=> setInput(input+'/')}>/</button>
+        <button onClick={()=> setInput(input+'%')}>%</button>
+        <button onClick={()=> setResult(eval(input))}>=</button> <br />
+
+
+      
+
+
       </center>
-    </div>
-  );
+      </div>
+      
+    
+  )
 }
