@@ -1,55 +1,48 @@
-import React, { useState } from 'react'
-import "./App.css"
+
+
+
+import axios from "axios";
+import React, {useState } from "react";
+
 export default function App() {
-
-  const [input,setInput]=useState('')
-const [result,setResult]=useState('0')
-// const result=input
-  const handling=e=>{
-    setInput(e.target.value)
+  const[data,setData]=useState({
+    userName:'',
+    email:'',
+    password:'',
+    confirmpassword:''
+  })
+  const{userName,email,password,confirmpassword}=data
+  const handler=e=>{
+    setData({...data,[e.target.name]:[e.target.value]})
   }
-  
-  return (
-    <div>
-    
-      <center className='hi'>
+  const sub=e=>{
+    e.preventDefault();
+
+    axios.post("https://teluguskillhub-9fb40-default-rtdb.firebaseio.com/register.json", data).then(
+      ()=>{alert("successfully submitted")}
+    ).catch(()=>console.log('error ayya'));
+    console.log(data);
+
+   
+  }
+    return (
+      <div><center>
+        <form action="">
+            {/* <label htmlFor="">UserName:</label> */}
+            <input type="text" value={userName} name='userName' onChange={handler}/><br />
+            {/* <label htmlFor="">Email:</label> */}
+            <input type="email" value={email}  name='email' onChange={handler }/><br />
+            {/* <label htmlFor="" >Password:</label> */}
+            <input type="password"  value={password} name='password'onChange={handler}/><br />
+            {/* <label htmlFor="" >Confirmpassword:</label> */}
+            <input type="password"  value={confirmpassword} name='confirmpassword' onChange={handler}/><br />
+            
+            <input type="submit" placeholder='Submit' onClick={sub} />
+        </form>
+
         
-      
-        <input type="text" name='input' value={input} onChange={handling}/><br /> <br />
-        {/* {input} */}
 
-        <button onClick={()=> setInput('')} >Clr</button>
-        <button onClick={()=>setResult(eval(input))}>Res</button>
-
-
-
-       
-        <h1>Result is :{result}</h1>
-
-        <button onClick={()=> setInput(input+'1')}>1</button>
-        <button onClick={()=> setInput(input+'2')}>2</button>
-        <button onClick={()=> setInput(input+'3')}>3</button>
-        <button onClick={()=> setInput(input+'4')}>4</button> <br />
-        <button onClick={()=> setInput(input+'5')}>5</button>
-        <button onClick={()=> setInput(input+'6')}>6</button>
-        <button onClick={()=> setInput(input+'7')}>7</button>
-        <button onClick={()=> setInput(input+'8')}>8</button> <br />
-        <button onClick={()=> setInput(input+'9')}>9</button>
-        <button onClick={()=> setInput(input+'0')}>0</button>
-        <button onClick={()=> setInput('')} >clr</button>
-        <button onClick={()=> setInput(input+'+')}>+</button> <br />
-        <button onClick={()=> setInput(input+'-')}>-</button>
-        <button onClick={()=> setInput(input+'/')}>/</button>
-        <button onClick={()=> setInput(input+'%')}>%</button>
-        <button onClick={()=> setResult(eval(input))}>=</button> <br />
-
-
-      
-
-
-      </center>
+        </center>
       </div>
-      
-    
-  )
+    )
 }
